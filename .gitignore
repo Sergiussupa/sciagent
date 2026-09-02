@@ -1,0 +1,111 @@
+# -----------------------------
+# Python
+# -----------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Packaging / build
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# -----------------------------
+# Environment / secrets
+# -----------------------------
+.env
+.env.*
+!.env.example
+
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+
+# -----------------------------
+# Local state / databases
+# -----------------------------
+state/
+*.sqlite
+*.sqlite3
+*.db
+
+# -----------------------------
+# Logs
+# -----------------------------
+*.log
+logs/
+
+# -----------------------------
+# Test / cache artifacts
+# -----------------------------
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.cache/
+
+# -----------------------------
+# Local research artifacts
+# -----------------------------
+*.pdf
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.svg
+
+downloads/
+artifacts/
+papers/
+data/raw/
+tmp/
+temp/
+
+# -----------------------------
+# Model / ML artifacts
+# -----------------------------
+*.gguf
+*.safetensors
+*.bin
+models/
+checkpoints/
+
+# -----------------------------
+# Node / frontend
+# -----------------------------
+node_modules/
+dist/
+.vite/
+
+# -----------------------------
+# IDE / OS
+# -----------------------------
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# -----------------------------
+# Archives
+# -----------------------------
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+
+# Editor / manual backup files
+*.bak
+*.orig
+*.rej
+*~
