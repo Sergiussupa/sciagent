@@ -1,0 +1,56 @@
+schema_version: "0.1"
+
+id: entity_extractor
+name: Entity Extractor
+
+layer: knowledge_extraction
+status: planned
+
+description: >
+  Extracts scientific entities from CanonicalDocument input.
+  Implementation must not begin until benchmark fixtures,
+  gold data and acceptance criteria are ready.
+
+inputs:
+  - name: CanonicalDocument
+    version: "0.1"
+
+outputs:
+  - name: EntityList
+    version: "0.1"
+
+depends_on: []
+
+implementation:
+  path: sciagent/knowledge/entity_extractor.py
+  exists: false
+
+providers:
+  - ollama
+
+models:
+  - qwen3:14b
+
+fixtures:
+  - wikiskill
+
+acceptance:
+  - metric: precision
+    operator: ">="
+    target: 0.80
+
+  - metric: recall
+    operator: ">="
+    target: 0.80
+
+  - metric: f1
+    operator: ">="
+    target: 0.80
+
+known_issues:
+  - CanonicalDocument fixture is not ready yet.
+  - WikiSkill gold entity annotations are not ready yet.
+  - Upstream CanonicalDocumentBuilder dependency is not registered yet.
+
+notes:
+  - First SciAgent module developed using the benchmark-first workflow.

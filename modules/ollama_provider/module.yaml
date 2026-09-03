@@ -1,0 +1,41 @@
+schema_version: "0.1"
+
+id: ollama_provider
+name: Ollama LLM Provider
+
+layer: knowledge_fabric
+status: prototype
+
+description: >
+  Provides local LLM inference through the Ollama HTTP API
+  behind the SciAgent language-model provider abstraction.
+
+inputs:
+  - name: LLMRequest
+    version: "0.1"
+
+outputs:
+  - name: LLMResponse
+    version: "0.1"
+
+depends_on: []
+
+implementation:
+  path: sciagent/llm/providers.py
+  exists: true
+
+providers:
+  - ollama
+
+models:
+  - qwen3:14b
+
+fixtures: []
+
+acceptance: []
+
+known_issues:
+  - Provider abstraction will later include cloud backends.
+
+notes:
+  - Local inference is the preferred development backend.

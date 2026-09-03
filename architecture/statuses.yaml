@@ -1,0 +1,38 @@
+version: "0.1"
+
+statuses:
+  - id: planned
+    name: Planned
+    order: 1
+
+  - id: contract_defined
+    name: Contract Defined
+    order: 2
+
+  - id: benchmark_defined
+    name: Benchmark Defined
+    order: 3
+
+  - id: prototype
+    name: Prototype
+    order: 4
+
+  - id: acceptance_passed
+    name: Acceptance Passed
+    order: 5
+
+  - id: integrated
+    name: Integrated
+    order: 6
+
+  - id: stable
+    name: Stable
+    order: 7
+
+  - id: blocked
+    name: Blocked
+    order: 8
+
+  - id: deferred
+    name: Deferred
+    order: 9

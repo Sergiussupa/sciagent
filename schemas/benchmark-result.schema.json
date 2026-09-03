@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SciAgent Benchmark Result",
+  "type": "object",
+  "additionalProperties": false,
+
+  "required": [
+    "schema_version",
+    "benchmark",
+    "module",
+    "status",
+    "metrics"
+  ],
+
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "0.1"
+    },
+
+    "benchmark": {
+      "type": "string"
+    },
+
+    "module": {
+      "type": "string"
+    },
+
+    "status": {
+      "type": "string",
+      "enum": [
+        "passed",
+        "failed",
+        "not_implemented",
+        "error"
+      ]
+    },
+
+    "provider": {
+      "type": ["string", "null"]
+    },
+
+    "model": {
+      "type": ["string", "null"]
+    },
+
+    "metrics": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number"
+      }
+    },
+
+    "duration_seconds": {
+      "type": ["number", "null"]
+    },
+
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

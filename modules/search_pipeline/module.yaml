@@ -1,0 +1,40 @@
+schema_version: "0.1"
+
+id: search_pipeline
+name: Search Pipeline
+
+layer: acquisition
+status: prototype
+
+description: >
+  Coordinates scientific paper search and stores discovered papers
+  in the local SciAgent research state.
+
+inputs:
+  - name: SearchRequest
+    version: "0.1"
+
+outputs:
+  - name: ResearchCollection
+    version: "0.1"
+
+depends_on:
+  - arxiv_search
+
+implementation:
+  path: sciagent/pipelines/search.py
+  exists: true
+
+providers: []
+
+models: []
+
+fixtures: []
+
+acceptance: []
+
+known_issues:
+  - Formal integration acceptance criteria have not been defined yet.
+
+notes:
+  - Currently operates primarily with arXiv.

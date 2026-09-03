@@ -1,0 +1,39 @@
+schema_version: "0.1"
+
+id: arxiv_search
+name: arXiv Search
+
+layer: acquisition
+status: prototype
+
+description: >
+  Searches arXiv for scientific papers and returns normalized paper metadata
+  for downstream research pipelines.
+
+inputs:
+  - name: SearchQuery
+    version: "0.1"
+
+outputs:
+  - name: PaperMetadataList
+    version: "0.1"
+
+depends_on: []
+
+implementation:
+  path: sciagent/sources/arxiv.py
+  exists: true
+
+providers: []
+
+models: []
+
+fixtures: []
+
+acceptance: []
+
+known_issues:
+  - Acceptance benchmark has not been defined yet.
+
+notes:
+  - Existing implementation is already used by the prototype search pipeline.

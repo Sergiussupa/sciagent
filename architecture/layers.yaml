@@ -1,0 +1,47 @@
+version: "0.1"
+
+layers:
+  - id: acquisition
+    name: Acquisition
+    order: 1
+    description: Search, discovery, downloading and source acquisition.
+
+  - id: raw_library
+    name: Raw Library
+    order: 2
+    description: Original scientific sources, metadata and local artifacts.
+
+  - id: document_understanding
+    name: Document Understanding
+    order: 3
+    description: Parsing and understanding document structure and visual elements.
+
+  - id: canonical_document
+    name: Canonical Document
+    order: 4
+    description: Stable normalized representation of a scientific document.
+
+  - id: knowledge_extraction
+    name: Knowledge Extraction
+    order: 5
+    description: Extraction of entities, concepts, methods, claims, evidence and results.
+
+  - id: knowledge_fabric
+    name: Knowledge Fabric
+    order: 6
+    description: Knowledge storage, normalization, graph construction and indexing.
+
+  - id: retrieval
+    name: Retrieval
+    order: 7
+    description: Keyword, semantic, evidence, graph and multi-hop retrieval.
+
+  - id: research_cells
+    name: Research Cells
+    order: 8
+    description: Specialized scientific-domain agents and knowledge views.
+
+  - id: orchestration
+    name: Reasoning Orchestrator
+    order: 9
+    description: Planning, routing, delegation, colloquium and final synthesis.
