@@ -1,0 +1,46 @@
+schema_version: "0.1"
+
+id: document_parser
+name: Document Parser
+
+layer: document_understanding
+status: contract_defined
+
+description: >
+  Converts scientific documents into normalized
+  CanonicalDocument representation.
+
+inputs:
+  - name: PDFDocument
+    version: "0.1"
+
+outputs:
+  - name: CanonicalDocument
+    version: "0.1"
+
+depends_on: []
+
+implementation:
+  path: sciagent/document/parser.py
+  exists: false
+
+providers:
+  - pdftotext
+  - qwen3-vl
+
+models:
+  - qwen3-vl:8b
+
+fixtures:
+  - wikiskill_pdf
+
+acceptance:
+  - metric: text_recall
+    operator: ">="
+    target: 0.95
+
+known_issues:
+  - Tables and formulas are not extracted yet.
+
+notes:
+  - Initial implementation will prioritize text fidelity.

@@ -1,0 +1,30 @@
+schema_version: "0.1"
+
+id: document_parser_v01
+
+module: document_parser
+
+description: >
+  Measures PDF to CanonicalDocument conversion quality.
+
+fixtures:
+  - id: wikiskill
+    input: benchmarks/fixtures/wikiskill/article.pdf
+    gold: benchmarks/gold/wikiskill/canonical_document.json
+
+metrics:
+  - text_recall
+  - section_detection
+  - table_detection
+
+acceptance:
+  - metric: text_recall
+    operator: ">="
+    target: 0.95
+
+  - metric: section_detection
+    operator: ">="
+    target: 0.80
+
+notes:
+  - Formula extraction intentionally excluded from v0.1.
