@@ -1,0 +1,39 @@
+schema_version: "0.1"
+
+id: research_design_extractor_v01
+module: research_design_extractor
+
+description: >
+  Measures extraction of structured scientific research design from
+  parsed scientific papers.
+
+fixtures:
+  - id: wikiskill
+    input: benchmarks/fixtures/document_parser/wikiskill.pdf
+    gold: benchmarks/gold/research_design_extractor/wikiskill.json
+
+  - id: urbanground
+    input: benchmarks/fixtures/document_parser/urbanground.pdf
+    gold: benchmarks/gold/research_design_extractor/urbanground.json
+
+metrics:
+  - schema_validity
+  - required_concept_recall
+  - source_page_coverage
+
+acceptance:
+  - metric: schema_validity
+    operator: ">="
+    target: 1.0
+
+  - metric: required_concept_recall
+    operator: ">="
+    target: 0.80
+
+  - metric: source_page_coverage
+    operator: ">="
+    target: 0.95
+
+notes:
+  - Gold evaluates required concepts rather than exact wording.
+  - Additional source-supported objects are allowed.

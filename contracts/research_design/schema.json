@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ResearchDesign@0.1",
+  "type": "object",
+  "additionalProperties": false,
+
+  "required": [
+    "contract",
+    "paper_id",
+    "research_questions",
+    "methods",
+    "systems",
+    "datasets",
+    "models",
+    "baselines",
+    "tasks",
+    "metrics",
+    "conditions"
+  ],
+
+  "properties": {
+    "contract": {
+      "const": "ResearchDesign@0.1"
+    },
+
+    "paper_id": {
+      "type": "string",
+      "minLength": 1
+    },
+
+    "research_questions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/question"
+      }
+    },
+
+    "methods": {
+      "$ref": "#/$defs/objects"
+    },
+
+    "systems": {
+      "$ref": "#/$defs/objects"
+    },
+
+    "datasets": {
+      "$ref": "#/$defs/objects"
+    },
+
+    "models": {
+      "$ref": "#/$defs/objects"
+    },
+
+    "baselines": {
+      "$ref": "#/$defs/objects"
+    },
+
+    "tasks": {
+      "$ref": "#/$defs/objects"
+    },
+
+    "metrics": {
+      "$ref": "#/$defs/objects"
+    },
+
+    "conditions": {
+      "$ref": "#/$defs/objects"
+    }
+  },
+
+  "$defs": {
+    "source_pages": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "integer",
+        "minimum": 1
+      }
+    },
+
+    "question": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "text",
+        "source_pages",
+        "confidence"
+      ],
+      "properties": {
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_pages": {
+          "$ref": "#/$defs/source_pages"
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+
+    "object": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "description",
+        "source_pages",
+        "confidence"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string"
+        },
+        "source_pages": {
+          "$ref": "#/$defs/source_pages"
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+
+    "objects": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/object"
+      }
+    }
+  }
+}

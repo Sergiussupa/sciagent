@@ -1,0 +1,60 @@
+schema_version: "0.1"
+
+id: research_design_extractor
+name: Research Design Extractor
+
+layer: knowledge_extraction
+status: prototype
+
+description: >
+  Extracts the research design of a scientific paper, including research
+  questions, methods, systems, datasets, models, baselines, tasks, metrics
+  and experimental conditions.
+
+inputs:
+  - name: CanonicalDocument
+    version: "0.1"
+
+outputs:
+  - name: ResearchDesign
+    version: "0.1"
+
+depends_on:
+  - document_parser
+  - ollama_provider
+
+implementation:
+  path: sciagent/knowledge_extraction/research_design.py
+  exists: true
+
+providers:
+  - ollama
+
+models:
+  - qwen3:14b
+
+fixtures:
+  - wikiskill.pdf
+  - urbanground.pdf
+
+acceptance:
+  - metric: schema_validity
+    operator: ">="
+    target: 1.0
+
+  - metric: required_concept_recall
+    operator: ">="
+    target: 0.80
+
+  - metric: source_page_coverage
+    operator: ">="
+    target: 0.95
+
+known_issues:
+  - Provenance uses page numbers until CanonicalDocument element IDs are available.
+  - Tables are not required for v0.1 extraction.
+
+notes:
+  - Extraction must not invent research objects absent from the source.
+  - Empty categories are allowed.
+  - Claim and evidence extraction are separate modules.

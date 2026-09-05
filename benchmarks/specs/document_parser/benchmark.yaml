@@ -1,30 +1,38 @@
 schema_version: "0.1"
 
 id: document_parser_v01
-
 module: document_parser
 
 description: >
-  Measures PDF to CanonicalDocument conversion quality.
+  Measures text and main-structure extraction from scientific PDFs.
 
 fixtures:
   - id: wikiskill
-    input: benchmarks/fixtures/wikiskill/article.pdf
-    gold: benchmarks/gold/wikiskill/canonical_document.json
+    input: benchmarks/fixtures/document_parser/wikiskill.pdf
+    gold: benchmarks/gold/document_parser/wikiskill.json
+
+  - id: urbanground
+    input: benchmarks/fixtures/document_parser/urbanground.pdf
+    gold: benchmarks/gold/document_parser/urbanground.json
 
 metrics:
-  - text_recall
-  - section_detection
-  - table_detection
+  - title_detection
+  - abstract_detection
+  - page_text_extraction
 
 acceptance:
-  - metric: text_recall
+  - metric: title_detection
     operator: ">="
     target: 0.95
 
-  - metric: section_detection
+  - metric: abstract_detection
     operator: ">="
-    target: 0.80
+    target: 0.95
+
+  - metric: page_text_extraction
+    operator: ">="
+    target: 0.90
 
 notes:
-  - Formula extraction intentionally excluded from v0.1.
+  - Tables and figures are outside DocumentParser v0.1 scope.
+  - Main-paper structure is extracted through References.

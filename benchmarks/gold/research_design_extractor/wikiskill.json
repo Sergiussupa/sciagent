@@ -1,0 +1,49 @@
+{
+  "paper_id": "wikiskill",
+
+  "required_concepts": {
+    "research_questions": [
+      ["persistent knowledge", "skill evolution"]
+    ],
+
+    "methods": [
+      ["WikiSkill"],
+      ["three-layer knowledge architecture"],
+      ["gating and rollback"]
+    ],
+
+    "systems": [
+      ["Inference Agent"],
+      ["Wiki Maintainer"],
+      ["Skill Proposer"]
+    ],
+
+    "datasets": [
+      ["LiveMath"],
+      ["SealQA"],
+      ["SpreadsheetBench", "SpreadSheetBench"],
+      ["OfficeQA"],
+      ["ALFWorld"]
+    ],
+
+    "models": [
+      ["Qwen"],
+      ["Gemma"],
+      ["Gemini"]
+    ],
+
+    "baselines": [
+      ["EvoSkill"],
+      ["Trace2Skill"],
+      ["SkillOpt"]
+    ],
+
+    "tasks": [
+      ["mathematical reasoning"],
+      ["web search"],
+      ["spreadsheet"],
+      ["document question answering"],
+      ["embodied"]
+    ]
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "paper_id": "urbanground",
+
+  "required_concepts": {
+    "research_questions": [
+      ["local spatial grounding"],
+      ["goal-directed navigation"],
+      ["changes in the city", "grounded perception and action"]
+    ],
+
+    "methods": [
+      ["closed-loop urban interaction"],
+      ["spatial agency evaluation"]
+    ],
+
+    "systems": [
+      ["UrbanGround"],
+      ["Geospatial Layer"],
+      ["Simulation Layer"],
+      ["Agent Layer"],
+      ["Spatial Agency Evaluation Ladder"]
+    ],
+
+    "datasets": [
+      ["3D Visualisation Map"],
+      ["3D Pedestrian Network"],
+      ["Hong Kong"]
+    ],
+
+    "tasks": [
+      ["local environment understanding", "local spatial grounding"],
+      ["navigation"],
+      ["dynamic environment interaction"]
+    ]
+  }
+}

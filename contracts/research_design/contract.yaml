@@ -1,0 +1,4 @@
+id: research_design
+name: ResearchDesign
+version: "0.1"
+schema: contracts/research_design/schema.json
