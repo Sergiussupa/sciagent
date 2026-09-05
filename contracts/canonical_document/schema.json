@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CanonicalDocument v0.1",
+  "type": "object",
+  "additionalProperties": false,
+
+  "required": [
+    "contract",
+    "paper_id",
+    "metadata",
+    "elements"
+  ],
+
+  "properties": {
+    "contract": {
+      "type": "string",
+      "const": "CanonicalDocument@0.1"
+    },
+
+    "paper_id": {
+      "type": "string",
+      "minLength": 1
+    },
+
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["title"],
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+
+        "authors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+
+        "source": {
+          "type": "string"
+        }
+      }
+    },
+
+    "elements": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/document_element"
+      }
+    }
+  },
+
+  "$defs": {
+    "document_element": {
+      "type": "object",
+      "additionalProperties": false,
+
+      "required": [
+        "id",
+        "type",
+        "content",
+        "locator",
+        "provenance"
+      ],
+
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+
+        "type": {
+          "type": "string",
+          "enum": [
+            "TEXT",
+            "TABLE",
+            "FIGURE",
+            "DIAGRAM",
+            "FORMULA",
+            "CODE",
+            "ALGORITHM",
+            "UNKNOWN"
+          ]
+        },
+
+        "section_id": {
+          "type": ["string", "null"]
+        },
+
+        "page": {
+          "type": ["integer", "null"],
+          "minimum": 1
+        },
+
+        "content": {
+          "type": "string"
+        },
+
+        "structured_content": {},
+
+        "locator": {
+          "type": "string",
+          "minLength": 1
+        },
+
+        "confidence": {
+          "type": ["number", "null"],
+          "minimum": 0,
+          "maximum": 1
+        },
+
+        "provenance": {
+          "type": "object",
+          "additionalProperties": true,
+          "required": ["source"],
+          "properties": {
+            "source": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+
+        "status": {
+          "type": "string",
+          "enum": [
+            "EXTRACTED",
+            "SOURCE_LINKED",
+            "VERIFIED",
+            "NORMALIZED",
+            "UNPROCESSED"
+          ]
+        }
+      }
+    }
+  }
+}

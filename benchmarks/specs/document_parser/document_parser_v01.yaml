@@ -1,0 +1,47 @@
+schema_version: "0.1"
+
+id: document_parser_v01
+
+module: document_parser
+
+description: >
+  Evaluates extraction of scientific PDF structure into CanonicalDocument.
+
+fixtures:
+
+  - id: wikiskill
+    input: benchmarks/fixtures/document_parser/wikiskill.pdf
+    gold: benchmarks/gold/document_parser/wikiskill.json
+
+  - id: urbanground
+    input: benchmarks/fixtures/document_parser/urbanground.pdf
+    gold: benchmarks/gold/document_parser/urbanground.json
+
+
+metrics:
+
+  - title_detection
+  - abstract_detection
+  - page_count_accuracy
+  - text_extraction_ratio
+
+
+acceptance:
+
+  - metric: title_detection
+    operator: ">="
+    target: 0.95
+
+  - metric: abstract_detection
+    operator: ">="
+    target: 0.95
+
+  - metric: text_extraction_ratio
+    operator: ">="
+    target: 0.90
+
+
+notes:
+
+  - v0.1 validates text-only extraction.
+  - Tables, formulas and figures are future extensions.

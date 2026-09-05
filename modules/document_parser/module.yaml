@@ -4,11 +4,11 @@ id: document_parser
 name: Document Parser
 
 layer: document_understanding
-status: contract_defined
+status: benchmark_defined
 
 description: >
-  Converts scientific documents into normalized
-  CanonicalDocument representation.
+  Converts scientific PDF documents into a normalized canonical document
+  representation preserving document structure, pages and text content.
 
 inputs:
   - name: PDFDocument
@@ -25,22 +25,31 @@ implementation:
   exists: false
 
 providers:
-  - pdftotext
-  - qwen3-vl
+  - pymupdf
+  - glm_ocr
 
 models:
-  - qwen3-vl:8b
+  - glm-ocr:latest
 
 fixtures:
-  - wikiskill_pdf
+  - wikiskill.pdf
+  - urbanground.pdf
 
 acceptance:
-  - metric: text_recall
+  - metric: title_detection
     operator: ">="
     target: 0.95
 
+  - metric: abstract_detection
+    operator: ">="
+    target: 0.95
+
+  - metric: page_text_extraction
+    operator: ">="
+    target: 0.90
+
 known_issues:
-  - Tables and formulas are not extracted yet.
+  - Tables and figures are not extracted in v0.1.
 
 notes:
-  - Initial implementation will prioritize text fidelity.
+  - Future versions may add multimodal extraction.

@@ -1,0 +1,41 @@
+schema_version: "0.1"
+
+id: glm_ocr_provider
+
+name: GLM OCR Provider
+
+layer: document_understanding
+
+status: prototype
+
+description: >
+  Vision OCR backend for extracting visual document information
+  such as tables and scanned content.
+
+inputs:
+  - name: DocumentImage
+    version: "0.1"
+
+outputs:
+  - name: OCRResult
+    version: "0.1"
+
+depends_on: []
+
+implementation:
+  path: sciagent/document/providers/glm_ocr.py
+  exists: false
+
+providers:
+  - ollama
+
+models:
+  - glm-ocr:latest
+
+acceptance: []
+
+known_issues:
+  - Integration benchmark not created yet.
+
+notes:
+  - Used as optional visual extraction backend.

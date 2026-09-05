@@ -1,0 +1,14 @@
+schema_version: "0.1"
+
+id: entity_list
+name: EntityList
+version: "0.1"
+
+description: >
+  Scientific entities extracted from a CanonicalDocument with provenance
+  linking every entity back to source document elements.
+
+schema: contracts/entity_list/schema.json
+
+notes:
+  - Entity taxonomy will evolve independently of EntityExtractor implementation.

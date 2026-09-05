@@ -1,0 +1,15 @@
+schema_version: "0.1"
+
+id: canonical_document
+name: CanonicalDocument
+version: "0.1"
+
+description: >
+  Stable normalized representation of a scientific document used as
+  input for downstream scientific knowledge extraction modules.
+
+schema: contracts/canonical_document/schema.json
+
+notes:
+  - Contract is intentionally minimal in v0.1.
+  - Provenance and stable source locators are mandatory.
