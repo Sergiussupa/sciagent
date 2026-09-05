@@ -4,11 +4,13 @@ id: document_parser
 name: Document Parser
 
 layer: document_understanding
-status: benchmark_defined
+status: prototype
 
 description: >
-  Converts scientific PDF documents into a normalized canonical document
-  representation preserving document structure, pages and text content.
+  Converts scientific PDF documents into a normalized document
+  representation preserving page text and main document structure.
+  Version 0.1 uses PyMuPDF as the primary backend and extracts
+  title, abstract, pages and section headings.
 
 inputs:
   - name: PDFDocument
@@ -22,7 +24,7 @@ depends_on: []
 
 implementation:
   path: sciagent/document/parser.py
-  exists: false
+  exists: true
 
 providers:
   - pymupdf
@@ -50,6 +52,12 @@ acceptance:
 
 known_issues:
   - Tables and figures are not extracted in v0.1.
+  - Python output model is not yet fully aligned with CanonicalDocument@0.1 contract.
+  - GLM-OCR structure verification is experimental and disabled by default.
+  - Fine-grained appendix structure is outside the v0.1 scope.
 
 notes:
-  - Future versions may add multimodal extraction.
+  - PyMuPDF is the primary parsing backend.
+  - Main-paper structure is extracted through References.
+  - WikiSkill and UrbanGround benchmark fixtures pass title, abstract, page count, text-anchor and required-section checks.
+  - GLM-OCR remains available as an experimental extension point for future OCR and table extraction.
