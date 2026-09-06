@@ -1,0 +1,39 @@
+schema_version: "0.1"
+
+id: claim_extractor_v01
+module: claim_extractor
+
+description: >
+  Measures extraction of central scientific contributions, findings,
+  interpretations and limitations with source-page provenance.
+
+fixtures:
+  - id: wikiskill
+    input: benchmarks/fixtures/document_parser/wikiskill.pdf
+    gold: benchmarks/gold/claim_extractor/wikiskill.json
+
+  - id: urbanground
+    input: benchmarks/fixtures/document_parser/urbanground.pdf
+    gold: benchmarks/gold/claim_extractor/urbanground.json
+
+metrics:
+  - schema_validity
+  - required_claim_recall
+  - source_page_coverage
+
+acceptance:
+  - metric: schema_validity
+    operator: ">="
+    target: 1.0
+
+  - metric: required_claim_recall
+    operator: ">="
+    target: 0.80
+
+  - metric: source_page_coverage
+    operator: ">="
+    target: 0.95
+
+notes:
+  - Gold checks central required claims rather than exhaustive annotation.
+  - Additional source-supported claims are allowed.

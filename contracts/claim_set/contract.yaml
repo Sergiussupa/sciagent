@@ -1,0 +1,4 @@
+id: claim_set
+name: ClaimSet
+version: "0.1"
+schema: contracts/claim_set/schema.json

@@ -14,6 +14,8 @@ from .pipelines.summarize import run_summarize
 from .pipelines.synthesize import run_synthesize
 from .rag.answer import answer_question
 from .rag.retriever import Retriever
+from .memory.research_workspace import ResearchWorkspace
+from .research.session import ResearchSession
 
 
 def setup():
@@ -118,6 +120,78 @@ def cmd_rag(args):
     print(answer_question(llm, args.question, rows))
 
 
+def cmd_ask(args):
+    config = Config()
+    config.ensure_dirs()
+
+    if args.provider:
+        config.llm_provider = args.provider
+
+    if args.model:
+        config.model = args.model
+
+    run_dir = (
+        config.home
+        / "research_runs"
+        / args.run_id
+    )
+
+    workspace_path = (
+        run_dir
+        / "workspace.sqlite3"
+    )
+
+    manifest_path = (
+        run_dir
+        / "papers.json"
+    )
+
+    if not workspace_path.exists():
+        raise SystemExit(
+            "ResearchWorkspace not found: "
+            + str(workspace_path)
+        )
+
+    if not manifest_path.exists():
+        raise SystemExit(
+            "ResearchRun manifest not found: "
+            + str(manifest_path)
+        )
+
+    manifest = json.loads(
+        manifest_path.read_text(
+            encoding="utf-8"
+        )
+    )
+
+    llm = make_llm(
+        config.llm_provider,
+        config.model,
+        config.ollama_url,
+    )
+
+    with ResearchWorkspace(
+        workspace_path
+    ) as workspace:
+        session = ResearchSession(
+            workspace=workspace,
+            llm=llm,
+            run_id=args.run_id,
+            run_dir=run_dir,
+            manifest=manifest,
+            max_items=args.limit,
+        )
+
+        if args.question:
+            print(
+                session.answer(
+                    args.question
+                )
+            )
+        else:
+            session.repl()
+
+
 def cmd_doctor(args):
     config, db = setup()
     print("Python:", sys.version.split()[0])
@@ -199,6 +273,40 @@ def build_parser():
     p.add_argument("--provider", choices=["auto", "ollama", "extractive"])
     p.add_argument("--model")
     p.set_defaults(func=cmd_rag)
+
+    p = sub.add_parser(
+        "ask",
+        help=(
+            "Ask questions against a persistent "
+            "ResearchRun workspace"
+        ),
+    )
+    p.add_argument(
+        "--run-id",
+        required=True,
+    )
+    p.add_argument(
+        "--question",
+    )
+    p.add_argument(
+        "--limit",
+        type=int,
+        default=30,
+    )
+    p.add_argument(
+        "--provider",
+        choices=[
+            "auto",
+            "ollama",
+            "extractive",
+        ],
+    )
+    p.add_argument(
+        "--model",
+    )
+    p.set_defaults(
+        func=cmd_ask
+    )
 
     p = sub.add_parser("doctor")
     p.set_defaults(func=cmd_doctor)

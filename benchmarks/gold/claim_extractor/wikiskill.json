@@ -1,0 +1,38 @@
+{
+  "paper_id": "wikiskill",
+
+  "required_claims": [
+    [
+      "co-evolves agent skills with a persistent knowledge base",
+      "persistent knowledge base"
+    ],
+    [
+      "outperforms existing skill-evolution methods",
+      "outperforms state-of-the-art skill-evolution methods"
+    ],
+    [
+      "skill evolution complements model scaling",
+      "complements model scaling"
+    ],
+    [
+      "skills transfer effectively across models",
+      "transfer effectively across models"
+    ],
+    [
+      "persistent knowledge accumulation is critical",
+      "persistent wiki is critical"
+    ],
+    [
+      "does not evaluate skill retrieval",
+      "skill retrieval or triggering"
+    ],
+    [
+      "strict validation gating",
+      "excludes neutral proposals"
+    ],
+    [
+      "lacks an automated mechanism to prune",
+      "automated mechanism to prune the wiki"
+    ]
+  ]
+}

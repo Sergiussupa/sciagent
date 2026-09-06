@@ -1,0 +1,59 @@
+schema_version: "0.1"
+
+id: paper_consolidator
+name: Paper Consolidator
+
+layer: knowledge_fabric
+status: prototype
+
+description: >
+  Hierarchically consolidates raw scientific claims stored in a
+  ResearchWorkspace into a compact paper-level knowledge representation
+  while preserving links to the original extracted claims and source pages.
+
+inputs:
+  - name: ResearchWorkspace
+    version: "0.1"
+
+outputs:
+  - name: PaperKnowledge
+    version: "0.1"
+
+depends_on:
+  - claim_extractor
+  - research_workspace
+  - ollama_provider
+
+implementation:
+  path: sciagent/knowledge_fabric/paper_consolidator.py
+  exists: true
+
+providers:
+  - ollama
+
+models:
+  - qwen3:14b
+
+fixtures: []
+
+acceptance:
+  - metric: hierarchical_reduction
+    operator: ">="
+    target: 1.0
+
+  - metric: provenance_preservation
+    operator: ">="
+    target: 1.0
+
+  - metric: checkpoint_resume
+    operator: ">="
+    target: 1.0
+
+known_issues:
+  - Semantic normalization across different papers is deferred.
+  - Cross-paper contradiction detection is deferred.
+
+notes:
+  - Raw claims are never deleted by consolidation.
+  - LLM context is bounded by one reduction group.
+  - Intermediate group reductions are persisted for crash recovery.

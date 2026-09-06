@@ -1,0 +1,30 @@
+{
+  "paper_id": "urbanground",
+
+  "required_claims": [
+    [
+      "UrbanGround",
+      "real-scale urban sandbox"
+    ],
+    [
+      "physically constrained replica of Hong Kong",
+      "replica of Hong Kong"
+    ],
+    [
+      "spatial agency",
+      "local urban perception into reliable action"
+    ],
+    [
+      "local spatial grounding",
+      "usable local spatial grounding"
+    ],
+    [
+      "goal-directed navigation",
+      "local grounding scale into goal-directed navigation"
+    ],
+    [
+      "changes in the city",
+      "grounded perception and action"
+    ]
+  ]
+}

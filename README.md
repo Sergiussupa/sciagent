@@ -202,3 +202,46 @@ Useful next plugins:
 ## Safety / arXiv behavior
 
 Discovery uses the arXiv export API rather than automating the web `/search` page. Deep reading uses `/html/<id>` via Playwright with a conservative navigation delay. Do not add stealth/CAPTCHA bypass logic.
+
+---
+
+## Current research-session milestone
+
+SciAgent can now run an end-to-end multi-paper research session:
+
+```text
+arXiv search
+→ resumable PDF download
+→ document parsing
+→ bounded-context knowledge extraction
+→ persistent ResearchWorkspace
+→ paper-level consolidation
+→ interactive follow-up questions
+```
+
+A real prototype run processed **10/10 arXiv papers** and produced a persistent research workspace with:
+
+- **400 raw claims**
+- **107 consolidated paper claims**
+- **214 methods**
+- **146 datasets**
+- **140 models**
+- **165 metrics**
+- **103 systems**
+
+Documentation:
+
+- [Current development progress](docs/PROGRESS.md)
+- [10-paper event-vision demo](docs/demos/event_vision_10_v01.md)
+
+Interactive usage:
+
+```bash
+SCIAGENT_MODEL=qwen3:14b \
+python -m sciagent ask \
+  --run-id event_vision_10_v01
+```
+
+The project intentionally prioritizes completing the full research architecture before aggressively optimizing individual LLM-dependent modules.
+
+Current components are expected to improve further with stronger models, better retrieval, evidence verification, and later knowledge normalization.

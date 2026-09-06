@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PaperKnowledge@0.1",
+  "type": "object",
+  "additionalProperties": false,
+
+  "required": [
+    "contract",
+    "paper_id",
+    "raw_claim_count",
+    "claims"
+  ],
+
+  "properties": {
+    "contract": {
+      "const": "PaperKnowledge@0.1"
+    },
+
+    "paper_id": {
+      "type": "string",
+      "minLength": 1
+    },
+
+    "raw_claim_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+
+    "claims": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/claim"
+      }
+    }
+  },
+
+  "$defs": {
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+
+      "required": [
+        "kind",
+        "text",
+        "epistemic_type",
+        "source_pages",
+        "source_fingerprints",
+        "confidence"
+      ],
+
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "CONTRIBUTION",
+            "FINDING",
+            "INTERPRETATION",
+            "LIMITATION"
+          ]
+        },
+
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+
+        "epistemic_type": {
+          "type": "string",
+          "enum": [
+            "AUTHOR_CLAIM",
+            "EXPERIMENTAL_RESULT",
+            "INTERPRETATION",
+            "LIMITATION"
+          ]
+        },
+
+        "source_pages": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+
+        "source_fingerprints": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    }
+  }
+}

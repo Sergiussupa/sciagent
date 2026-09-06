@@ -1,0 +1,4 @@
+id: paper_knowledge
+name: PaperKnowledge
+version: "0.1"
+schema: contracts/paper_knowledge/schema.json

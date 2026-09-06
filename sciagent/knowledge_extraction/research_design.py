@@ -230,6 +230,156 @@ PAPER:
             context=context,
         )
 
+    def build_batch_prompt(
+        self,
+        document,
+        batch,
+    ) -> str:
+        local_structure = []
+
+        for section in document.sections:
+            page = section.page_start
+
+            if not page:
+                continue
+
+            if (
+                batch.page_start - 1
+                <= page
+                <= batch.page_end + 1
+            ):
+                local_structure.append(
+                    "[PAGE {}] {}".format(
+                        page,
+                        section.title,
+                    )
+                )
+
+        structure_text = (
+            "\n".join(local_structure)
+            if local_structure
+            else "(no local headings detected)"
+        )
+
+        return """
+Extract research-design objects from ONE PART
+of a larger scientific paper.
+
+Other parts are processed separately.
+Use ONLY evidence in this batch.
+
+Return JSON only:
+
+{
+  "research_questions": [
+    {
+      "text": "...",
+      "source_pages": [1],
+      "confidence": 0.0
+    }
+  ],
+  "methods": [],
+  "systems": [],
+  "datasets": [],
+  "models": [],
+  "baselines": [],
+  "tasks": [],
+  "metrics": [],
+  "conditions": []
+}
+
+Every item except research_questions must use:
+
+{
+  "name": "...",
+  "description": "...",
+  "source_pages": [1],
+  "confidence": 0.0
+}
+
+Definitions:
+
+systems:
+named frameworks, platforms, architectures, agents,
+modules, components, sandboxes and architectural layers.
+
+methods:
+procedures, algorithms, strategies, evaluation approaches,
+interaction methods and protocols.
+
+datasets:
+datasets, benchmarks, environments and data resources.
+
+models:
+named model families and concrete evaluated models.
+
+baselines:
+comparison methods or systems.
+
+tasks:
+capabilities and task families being evaluated.
+
+metrics:
+evaluation measures.
+
+conditions:
+experimental variants, settings or environmental conditions.
+
+Rules:
+
+- Extract only objects supported in this batch.
+- Do not attempt to reconstruct missing parts of the paper.
+- Empty categories are valid.
+- Preserve canonical author terminology.
+- Avoid ordinary background entities.
+- source_pages must refer only to [PAGE N] markers in this batch.
+- confidence must be between 0 and 1.
+
+PAPER:
+%s
+
+LOCAL DOCUMENT STRUCTURE:
+
+%s
+
+BATCH %s
+PAGES %s-%s:
+
+%s
+""".strip() % (
+            document.title,
+            structure_text,
+            batch.batch_id,
+            batch.page_start,
+            batch.page_end,
+            batch.text,
+        )
+
+    def extract_batch(
+        self,
+        document,
+        batch,
+    ) -> Dict:
+        if self.json_generator is None:
+            raise RuntimeError(
+                "ResearchDesignExtractor requires json_generator"
+            )
+
+        result = self.json_generator(
+            self.build_batch_prompt(
+                document=document,
+                batch=batch,
+            )
+        )
+
+        if isinstance(result, str):
+            result = json.loads(result)
+
+        return self._normalize(
+            document=document,
+            result=result,
+        )
+
     def extract(self, document) -> Dict:
         if self.json_generator is None:
             raise RuntimeError(

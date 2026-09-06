@@ -1,0 +1,59 @@
+schema_version: "0.1"
+
+id: claim_extractor
+name: Claim Extractor
+
+layer: knowledge_extraction
+status: prototype
+
+description: >
+  Extracts scientific contributions, findings, interpretations and
+  limitations from scientific papers with page-level provenance.
+
+inputs:
+  - name: CanonicalDocument
+    version: "0.1"
+
+outputs:
+  - name: ClaimSet
+    version: "0.1"
+
+depends_on:
+  - document_parser
+  - ollama_provider
+
+implementation:
+  path: sciagent/knowledge_extraction/claims.py
+  exists: true
+
+providers:
+  - ollama
+
+models:
+  - qwen3:14b
+
+fixtures:
+  - wikiskill.pdf
+  - urbanground.pdf
+
+acceptance:
+  - metric: schema_validity
+    operator: ">="
+    target: 1.0
+
+  - metric: required_claim_recall
+    operator: ">="
+    target: 0.80
+
+  - metric: source_page_coverage
+    operator: ">="
+    target: 0.95
+
+known_issues:
+  - Provenance is page-level until CanonicalDocument element IDs are available.
+  - Table-grounded quantitative evidence is outside v0.1.
+  - Claim verification is performed by a later EvidenceExtractor.
+
+notes:
+  - Claim extraction must distinguish author claims from experimental findings.
+  - Unsupported claims must not be invented.

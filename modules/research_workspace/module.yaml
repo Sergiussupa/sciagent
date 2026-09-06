@@ -1,0 +1,55 @@
+schema_version: "0.1"
+
+id: research_workspace
+name: Research Workspace
+
+layer: knowledge_fabric
+status: prototype
+
+description: >
+  Provides persistent run-scoped temporary knowledge storage for iterative
+  scientific research. It allows papers and document batches to be processed
+  incrementally without requiring the complete corpus or complete document
+  to fit into an LLM context.
+
+inputs:
+  - name: KnowledgeArtifact
+    version: "0.1"
+
+outputs:
+  - name: ResearchWorkspace
+    version: "0.1"
+
+depends_on: []
+
+implementation:
+  path: sciagent/memory/research_workspace.py
+  exists: true
+
+providers: []
+
+models: []
+
+fixtures: []
+
+acceptance:
+  - metric: persistence_roundtrip
+    operator: ">="
+    target: 1.0
+
+  - metric: artifact_deduplication
+    operator: ">="
+    target: 1.0
+
+  - metric: checkpoint_resume
+    operator: ">="
+    target: 1.0
+
+known_issues:
+  - Semantic retrieval inside a workspace is deferred.
+  - Long-term knowledge reconciliation is a separate future module.
+
+notes:
+  - Workspace lifetime is scoped to a ResearchRun.
+  - Temporary means lifecycle-scoped, not in-memory-only.
+  - Workspace content may be discarded after successful reconciliation.
